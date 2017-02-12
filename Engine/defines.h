@@ -11,8 +11,8 @@
 #define ACTION1_PIN 3
 #define ACTION2_PIN 4
 
-#define WIDTH 120
-#define HEIGHT 80
+#define WIDTH 120 // 15 tiles
+#define HEIGHT 72 // 9 tiles
 
 enum Direction{Left, Right, Up, Down};
 enum Button{U,D,L,R,A,B};
