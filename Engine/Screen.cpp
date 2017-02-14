@@ -13,7 +13,9 @@ void Screen::startUp(){
 
 void Screen::printTile(unsigned char sprite, Point position){
   for(int i = 0; i < 8; i++){
-    display.screen[(WIDTH/8)*(topMargin+position.y*8+i)+position.x] = sprites[sprite][i];  
+    char *ptr = pgm_read_ptr_near(sprite_table+sprite);
+    unsigned char tile = pgm_read_byte_near(ptr+i);
+    display.screen[(WIDTH/8)*(topMargin+position.y*8+i)+position.x] = tile;  
   }
 }
 
@@ -27,7 +29,12 @@ void Screen::printSprite(unsigned char sprite[], int height, Point position){
 
 void Screen::printText(unsigned char text[], unsigned char size, Point position){
   for(int i = 0; i < size; i++){
-    printSprite(letters[text[i]], 8, position);
+    unsigned char letters[8];
+    for(int j = 0; j < 8; j++){
+      char *ptr = pgm_read_ptr_near(letter_table+text[i]);
+      letters[j] = pgm_read_byte_near(ptr+j);
+    }
+    printSprite(letters, 8, position);
     position.x += 8;   
   }  
 }
